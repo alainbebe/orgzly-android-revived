@@ -183,7 +183,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Checkmark -->
+    <!-- Checkmark Done -->
     <ImageView
         android:id="@+id/item_list_widget_done"
         style="?android:attr/borderlessButtonStyle"
@@ -196,4 +196,17 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:src="@drawable/ic_check_circle_outline" />
+    <!-- Checkmark Repeat -->
+    <ImageView
+        android:id="@+id/item_list_widget_repeat"
+        style="?android:attr/borderlessButtonStyle"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        android:paddingTop="@dimen/widget_padding"
+        android:paddingBottom="0dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_repeat" /> <!-- Make a better icon -->
 </LinearLayout>

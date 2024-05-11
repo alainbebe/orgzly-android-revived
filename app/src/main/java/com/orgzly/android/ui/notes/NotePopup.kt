@@ -17,9 +17,11 @@ import androidx.annotation.StringRes
 import com.google.android.material.button.MaterialButton
 import com.orgzly.BuildConfig
 import com.orgzly.R
+import com.orgzly.android.data.DataRepository
 import com.orgzly.android.prefs.NotePopupPreference
 import com.orgzly.android.ui.util.getLayoutInflater
 import com.orgzly.android.util.LogUtils
+import com.orgzly.org.datetime.OrgDateTime
 
 
 fun interface NotePopupListener {
@@ -32,7 +34,7 @@ object NotePopup {
         QUERY
     }
 
-    fun showWindow(itemId: Long, anchor: View, location: Location, direction: Int, e1: MotionEvent, e2: MotionEvent, listener: NotePopupListener): PopupWindow? {
+    fun showWindow(itemId: Long, anchor: View, location: Location, direction: Int, e1: MotionEvent, e2: MotionEvent,dataRepository: DataRepository, listener: NotePopupListener): PopupWindow? {
         val context = anchor.context
 
         val actions = getActionsForLocation(context, location, direction)
@@ -72,8 +74,17 @@ object NotePopup {
                 listener.onPopupButtonClick(itemId, action.id)
                 popupWindow.dismiss()
             }
-
-            button.setIconResource(action.icon)
+            val note = dataRepository?.db?.note()?.get(setOf(itemId))?.first()
+            val noteView = note?.let { dataRepository.getNoteView(it.id) }
+            // probably, it's not necessary to use noteView, but directly Note, but I don't know how.
+            val scheduled = OrgDateTime.parseOrNull(noteView!!.scheduledRangeString)
+            val deadline = OrgDateTime.parseOrNull(noteView!!.deadlineRangeString)
+            val isRepeaterUsed = (scheduled?.hasRepeater() == true || deadline?.hasRepeater() == true) ?: false
+            if (isRepeaterUsed && (R.drawable.ic_check_circle_outline == action.icon)) {
+                button.setIconResource(R.drawable.ic_repeat)
+            } else {
+                button.setIconResource(action.icon)
+            }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 button.tooltipText = context.getString(action.tooltip)
             }

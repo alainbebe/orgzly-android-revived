@@ -152,6 +152,7 @@ object WidgetStyle {
         setColorFilter(context, colorScheme, remoteViews, R.id.item_list_widget_closed_icon)
         setTextColor(context, colorScheme, remoteViews, R.id.item_list_widget_closed_text)
         setColorFilter(context, colorScheme, remoteViews, R.id.item_list_widget_done)
+        setColorFilter(context, colorScheme, remoteViews, R.id.item_list_widget_repeat)
 
         remoteViews.setTextViewTextSize(
             R.id.item_list_widget_title,
@@ -185,6 +186,9 @@ object WidgetStyle {
 
         remoteViews.setInt(
             R.id.item_list_widget_done, "setAlpha", doneIconAlpha(context))
+
+        remoteViews.setInt(
+            R.id.item_list_widget_repeat, "setAlpha", doneIconAlpha(context))
     }
 
     @JvmStatic

@@ -51,7 +51,7 @@ abstract class NotesFragment : CommonFragment(), TimestampDialogFragment.OnDateT
 
         val anchor = itemView.findViewById<View>(R.id.item_head_title)
 
-        notePopup = NotePopup.showWindow(noteId, anchor, location, direction, e1, e2) { _, buttonId ->
+        notePopup = NotePopup.showWindow(noteId, anchor, location, direction, e1, e2,dataRepository) { _, buttonId ->
             listener.onPopupButtonClick(noteId, buttonId)
         }
 

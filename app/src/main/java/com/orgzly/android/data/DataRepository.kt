@@ -62,7 +62,7 @@ import javax.inject.Singleton
 @Singleton
 class DataRepository @Inject constructor(
         private val context: Context,
-        private val db: OrgzlyDatabase,
+        internal val db: OrgzlyDatabase,
         private val repoFactory: RepoFactory,
         private val resources: Resources,
         private val localStorage: LocalStorage) {

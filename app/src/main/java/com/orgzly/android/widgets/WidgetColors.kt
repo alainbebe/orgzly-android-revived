@@ -24,7 +24,8 @@ object WidgetColors {
             R.id.item_list_widget_event_text to android.R.attr.textColorSecondary,
             R.id.item_list_widget_closed_icon to android.R.attr.textColorSecondary,
             R.id.item_list_widget_closed_text to android.R.attr.textColorSecondary,
-            R.id.item_list_widget_done to android.R.attr.textColorSecondary
+            R.id.item_list_widget_done to android.R.attr.textColorSecondary,
+            R.id.item_list_widget_repeat to android.R.attr.textColorSecondary,
         ),
         "light" to mapOf(
             R.id.list_widget_header_container to R.color.widget_light_header_bg_color,
@@ -46,7 +47,8 @@ object WidgetColors {
             R.id.item_list_widget_event_text to R.color.widget_light_post_title_color,
             R.id.item_list_widget_closed_icon to R.color.widget_light_post_title_color,
             R.id.item_list_widget_closed_text to R.color.widget_light_post_title_color,
-            R.id.item_list_widget_done to R.color.widget_light_post_title_color
+            R.id.item_list_widget_done to R.color.widget_light_post_title_color,
+            R.id.item_list_widget_repeat to R.color.widget_light_post_title_color,
         ),
         "dark" to mapOf(
             R.id.list_widget_header_container to R.color.widget_dark_header_bg_color,
@@ -69,6 +71,7 @@ object WidgetColors {
             R.id.item_list_widget_closed_icon to R.color.widget_dark_post_title_color,
             R.id.item_list_widget_closed_text to R.color.widget_dark_post_title_color,
             R.id.item_list_widget_done to R.color.widget_dark_post_title_color,
+            R.id.item_list_widget_repeat to R.color.widget_dark_post_title_color
         ),
         "black" to mapOf(
             R.id.list_widget_header_container to R.color.widget_black_header_bg_color,
@@ -91,6 +94,7 @@ object WidgetColors {
             R.id.item_list_widget_closed_icon to R.color.widget_black_post_title_color,
             R.id.item_list_widget_closed_text to R.color.widget_black_post_title_color,
             R.id.item_list_widget_done to R.color.widget_black_post_title_color,
+            R.id.item_list_widget_repeat to R.color.widget_black_post_title_color,
         )
     )
 

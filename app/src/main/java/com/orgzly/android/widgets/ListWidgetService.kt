@@ -21,6 +21,7 @@ import com.orgzly.android.ui.notes.query.agenda.AgendaItems
 import com.orgzly.android.ui.util.TitleGenerator
 import com.orgzly.android.util.LogUtils
 import com.orgzly.android.util.UserTimeFormatter
+import com.orgzly.org.datetime.OrgDateTime
 import com.orgzly.org.datetime.OrgRange
 import org.joda.time.DateTime
 import javax.inject.Inject
@@ -198,7 +199,11 @@ class ListWidgetService : RemoteViewsService() {
             }
 
             var scheduled = noteView.scheduledRangeString
+            val scheduledODT = OrgDateTime.parseOrNull(noteView.scheduledRangeString)
+            val isRepeaterScheduled = scheduledODT?.hasRepeater() ?: false
             var deadline = noteView.deadlineRangeString
+            val deadlineODT = OrgDateTime.parseOrNull(noteView.deadlineRangeString)
+            val isRepeaterDeadline = deadlineODT?.hasRepeater() ?: false
             var event = noteView.eventString
 
             // In Agenda only display time responsible for item's presence
@@ -249,8 +254,13 @@ class ListWidgetService : RemoteViewsService() {
 
             // Check mark
             if (!AppPreferences.widgetDisplayCheckmarks(context) || doneStates.contains(noteView.note.state)) {
+                row.setViewVisibility(R.id.item_list_widget_repeat, View.GONE)
+                row.setViewVisibility(R.id.item_list_widget_done, View.GONE)
+            } else if (isRepeaterScheduled || isRepeaterDeadline) {
+                row.setViewVisibility(R.id.item_list_widget_repeat, View.VISIBLE)
                 row.setViewVisibility(R.id.item_list_widget_done, View.GONE)
             } else {
+                row.setViewVisibility(R.id.item_list_widget_repeat, View.GONE)
                 row.setViewVisibility(R.id.item_list_widget_done, View.VISIBLE)
             }
 
@@ -265,7 +275,11 @@ class ListWidgetService : RemoteViewsService() {
             val doneIntent = Intent()
             doneIntent.putExtra(AppIntent.EXTRA_CLICK_TYPE, ListWidgetProvider.DONE_CLICK_TYPE)
             doneIntent.putExtra(AppIntent.EXTRA_NOTE_ID, noteView.note.id)
-            row.setOnClickFillInIntent(R.id.item_list_widget_done, doneIntent)
+            if (isRepeaterScheduled || isRepeaterDeadline) {
+                row.setOnClickFillInIntent(R.id.item_list_widget_repeat, doneIntent)
+            } else {
+                row.setOnClickFillInIntent(R.id.item_list_widget_done, doneIntent)
+            }
         }
     }
 

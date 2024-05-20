@@ -18,6 +18,7 @@ import com.google.android.material.button.MaterialButton
 import com.orgzly.BuildConfig
 import com.orgzly.R
 import com.orgzly.android.data.DataRepository
+import com.orgzly.android.db.entity.OrgTimestamp
 import com.orgzly.android.prefs.NotePopupPreference
 import com.orgzly.android.ui.util.getLayoutInflater
 import com.orgzly.android.util.LogUtils
@@ -74,8 +75,8 @@ object NotePopup {
                 listener.onPopupButtonClick(itemId, action.id)
                 popupWindow.dismiss()
             }
-            val note = dataRepository?.db?.note()?.get(setOf(itemId))?.first()
-            val noteView = note?.let { dataRepository.getNoteView(it.id) }
+            val mynote = dataRepository?.db?.note()?.get(itemId)
+            val noteView = mynote?.let { dataRepository.getNoteView(it.id) }
             // probably, it's not necessary to use noteView, but directly Note, but I don't know how.
             val scheduled = OrgDateTime.parseOrNull(noteView!!.scheduledRangeString)
             val deadline = OrgDateTime.parseOrNull(noteView!!.deadlineRangeString)
